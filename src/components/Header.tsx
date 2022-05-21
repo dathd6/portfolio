@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import Link from "next/link";
 
-type HeaderProps = {
+interface HeaderProps {
   viewport: {
     w: number;
     h: number;
@@ -10,7 +10,7 @@ type HeaderProps = {
     is768: boolean;
     is1024: boolean;
   };
-};
+}
 
 let header_breadcrumb = "";
 

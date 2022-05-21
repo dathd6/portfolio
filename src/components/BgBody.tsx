@@ -1,6 +1,6 @@
 import React from "react";
 
-type BgBodyProps = {};
+interface BgBodyProps {}
 
 const BgBody: React.FC<BgBodyProps> = ({}) => {
   return (

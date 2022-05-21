@@ -1,6 +1,9 @@
+// style
 import "../styles/app.scss";
 import "../styles/nprogress.scss";
 import "../styles/header.scss";
+import "../styles/home.scss";
+// default
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
