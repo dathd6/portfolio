@@ -3,34 +3,47 @@ import "../styles/app.scss";
 import "../styles/nprogress.scss";
 import "../styles/header.scss";
 import "../styles/home.scss";
+import "../styles/about.scss";
+import "../styles/err404.scss";
 // default
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 // ScrollMagic
 let ScrollMagic = null;
 // GSAP + ScrollMagic
-if (typeof window !== "undefined") {
-  ScrollMagic = require("scrollmagic");
-}
 import { TweenMax, TimelineMax, Power3, Elastic } from "gsap";
 import { ScrollMagicPluginGsap } from "scrollmagic-plugin-gsap";
 if (typeof window !== "undefined") {
+  ScrollMagic = require("scrollmagic");
   ScrollMagicPluginGsap(ScrollMagic, TweenMax, TimelineMax);
 }
 // components
 import Spine from "../components/Spine";
 import Header from "../components/Header";
 import BgBody from "../components/BgBody";
+// Context
+let viewport = {
+  w: 0,
+  h: 0,
+  is568: 0 <= 568,
+  is768: 0 <= 768,
+  is1024: 0 <= 1024,
+};
+if (typeof window !== "undefined") {
+  viewport = {
+    w: window.innerWidth,
+    h: window.innerHeight,
+    is568: window.innerWidth <= 568,
+    is768: window.innerWidth <= 768,
+    is1024: window.innerWidth <= 1024,
+  };
+}
+export const Context = createContext({
+  viewport,
+});
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [viewport, setViewPort] = useState({
-    w: 0,
-    h: 0,
-    is568: 0 <= 568,
-    is768: 0 <= 768,
-    is1024: 0 <= 1024,
-  });
   const introTimeline = new TimelineMax();
   const leaveTimeline = new TimelineMax();
 
@@ -39,14 +52,14 @@ function MyApp({ Component, pageProps }: AppProps) {
   if (router === "") routeBodyClass = "page-home";
   else routeBodyClass = `page-${router}`;
 
-  const updateViewport = () =>
-    setViewPort({
-      w: window.innerWidth,
-      h: window.innerHeight,
-      is568: window.innerWidth <= 568,
-      is768: window.innerWidth <= 768,
-      is1024: window.innerWidth <= 1024,
-    });
+  // const updateViewport = () =>
+  //   setViewPort({
+  //     w: window.innerWidth,
+  //     h: window.innerHeight,
+  //     is568: window.innerWidth <= 568,
+  //     is768: window.innerWidth <= 768,
+  //     is1024: window.innerWidth <= 1024,
+  //   });
 
   const enter = (el: any, done: any) => {
     // intro animations
@@ -183,12 +196,14 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <div id="app" className={routeBodyClass}>
-      <BgBody />
-      <Header viewport={viewport} />
-      <Component {...pageProps} />
-      <Spine />
-    </div>
+    <Context.Provider value={{ viewport }}>
+      <div id="app" className={routeBodyClass}>
+        <BgBody />
+        <Header viewport={viewport} />
+        <Component {...pageProps} />
+        <Spine />
+      </div>
+    </Context.Provider>
   );
 }
 
