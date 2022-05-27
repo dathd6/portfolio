@@ -46,7 +46,6 @@ export const useStore = create((set) => ({
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { viewport, setViewport } = useStore<any>((state) => state);
-  console.log(viewport);
   const introTimeline = new TimelineMax();
   const leaveTimeline = new TimelineMax();
 
