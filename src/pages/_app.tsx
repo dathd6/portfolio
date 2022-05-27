@@ -25,6 +25,7 @@ import BgBody from "../components/BgBody";
 // Zustand
 import create from "zustand";
 export const useStore = create((set) => ({
+  what: "hehhe",
   viewport: {
     w: 0,
     h: 0,

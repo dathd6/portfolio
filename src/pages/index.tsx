@@ -19,30 +19,27 @@ if (typeof window !== "undefined") {
 // components
 import Intro from "../components/Home/Intro";
 import Titles from "../components/Home/Titles";
+import Biz from "../components/Home/Biz";
+// loop animations (depend on each scene!!!)
+// @TODO improve
+import { abiz } from "../utils/abiz";
+//import BizAstro from "../utils/astro";
+//import BizCoffee from "../utils/coffee";
+//import BizET from "../utils/et";
+//import BizDino from "../utils/dino";
+//import BizFilomena from "../utils/filomena";
+//import BizOcto from "../utils/octo";
+//import BizZen from "../utils/zen";
+//import BizShapes from "../utils/shapes";
+//import Potion from "../utils/potion";
+//import Pepe from "../utils/pepe";
+//import Mario from "../utils/mario";
+//import Castle from "../utils/ghibli";
+// zustand
 import { useStore } from "./_app";
-//    import Biz from "../components/Home/Biz.vue";
-//    import EarlyDays from "../components/Home/EarlyDays.vue";
-//    import SuperMario from "../components/Home/SuperMario.vue";
-//    import Ghibli from "../components/Home/Ghibli.vue";
-//    import Wrapper from "../components/Home/Wrapper.vue";
-//    import Thanks from "../components/Home/Thanks.vue";
-//    // loop animations (depend on each scene!!!)
-//    // ..TODO improve
-//    import BizBiz from "../ts/abiz";
-//    import BizAstro from "../ts/astro";
-//    import BizCoffee from "../ts/coffee";
-//    import BizET from "../ts/et";
-//    import BizDino from "../ts/dino";
-//    import BizFilomena from "../ts/filomena";
-//    import BizOcto from "../ts/octo";
-//    import BizZen from "../ts/zen";
-//    import BizShapes from "../ts/shapes";
-//    import Potion from "../ts/potion";
-//    import Pepe from "../ts/pepe";
-//    import Mario from "../ts/mario";
-//import Castle from "../ts/ghibli";
 
 const Home: NextPage = () => {
+  const BizBiz = abiz();
   const intro = new TimelineMax();
   const viewport = useStore((state) => state.viewport);
   const [timeLines, setTimeLines] = useState<any[]>([]);
@@ -133,6 +130,212 @@ const Home: NextPage = () => {
     }
   };
 
+  const hookLoops = () => {
+    /**
+     * @desc
+     * play and stop loop animations
+     * based on the scenes been played
+     */
+    scenes[0].on("enter", (e) => {
+      if (e.scrollDirection === "FORWARD") {
+      }
+      if (e.scrollDirection === "REVERSE") {
+        BizBiz.stop();
+        //BizShapes.stop();
+      }
+    });
+    scenes[1].on("enter", (e) => {
+      if (e.scrollDirection === "FORWARD") {
+        BizBiz.play();
+        //BizShapes.play();
+      }
+      if (e.scrollDirection === "REVERSE") {
+        //BizZen.stop();
+      }
+    });
+    scenes[2].on("enter", (e) => {
+      if (e.scrollDirection === "FORWARD") {
+        //   BizZen.play();
+      }
+      if (e.scrollDirection === "REVERSE") {
+        BizBiz.play();
+        // BizShapes.play();
+        // BizFilomena.stop();
+        // BizDino.stop();
+        // BizET.stop();
+        // BizOcto.stop();
+        // BizAstro.stop();
+        // BizCoffee.stop();
+      }
+    });
+    scenes[3].on("enter", (e) => {
+      if (e.scrollDirection === "FORWARD") {
+        BizBiz.stop();
+        //BizShapes.stop();
+        //BizFilomena.play();
+        //BizDino.play();
+        //BizET.play();
+        //BizOcto.play();
+        //BizAstro.play();
+        //BizCoffee.play();
+      }
+      if (e.scrollDirection === "REVERSE") {
+        //BizZen.play();
+      }
+    });
+    //scenes[4].on("enter", (e) => {
+    //  if (e.scrollDirection === "FORWARD") {
+    //    BizZen.stop();
+    //  }
+    //  if (e.scrollDirection === "REVERSE") {
+    //    BizFilomena.play();
+    //    BizDino.play();
+    //    BizET.play();
+    //    BizOcto.play();
+    //  }
+    //});
+    // scenes[5].on("enter", (e) => {
+    //   if (e.scrollDirection === "FORWARD") {
+    //     BizFilomena.stop();
+    //     BizDino.stop();
+    //     BizET.stop();
+    //     BizOcto.stop();
+    //   }
+    //   if (e.scrollDirection === "REVERSE") {
+    //     BizAstro.play();
+    //     BizCoffee.play();
+    //     Pepe.stop();
+    //   }
+    // });
+    // scenes[6].on("enter", (e) => {
+    //   if (e.scrollDirection === "FORWARD") {
+    //     BizAstro.stop();
+    //     BizCoffee.stop();
+    //     Pepe.play();
+    //   }
+    //   if (e.scrollDirection === "REVERSE") {
+    //   }
+    // });
+    // 7
+    // 8
+    //scenes[9]
+    //    .on('enter', (e) => {
+    //        if (e.scrollDirection === 'FORWARD') {
+    //        }
+    //        if (e.scrollDirection === 'REVERSE') {
+    //            Pepe.play();
+    //            // release mario body lock and remove bg
+    //            document.body.classList.remove('-mario-lock', '-mario-bg');
+    //        }
+    //    });
+    //scenes[10] /** @Mario **/
+    //    .on('enter', (e) => {
+    //        if (e.scrollDirection === 'FORWARD') {
+    //            Pepe.stop();
+    //            // mario bg is added inside mario.js
+    //        }
+    //        if (e.scrollDirection === 'REVERSE') {
+    //            // add bg just in case
+    //            document.body.classList.add('-mario-bg');
+    //        }
+    //    })
+    //    .on('leave', (e) => {
+    //        if (e.scrollDirection === 'FORWARD') {
+    //        }
+    //        if (e.scrollDirection === 'REVERSE') {
+    //            Castle.stop();
+    //        }
+    //    });
+    //scenes[11]
+    //    .on('enter', (e) => {
+    //        if (e.scrollDirection === 'FORWARD') {
+    //            Castle.play();
+    //            // release mario body lock
+    //            document.body.classList.remove('-mario-lock');
+    //        }
+    //        if (e.scrollDirection === 'REVERSE') {
+    //        }
+    //        // add bg just in case in both directions
+    //        document.body.classList.add('-mario-bg');
+    //    });
+    //scenes[12]
+    //    .on('enter', (e) => {
+    //        // add bg just in case in both directions
+    //        document.body.classList.add('-mario-bg');
+    //    });
+    //scenes[13]
+    //    .on('enter', (e) => {
+    //        // add bg just in case in both directions
+    //        document.body.classList.add('-mario-bg');
+    //    });
+    //scenes[14]
+    //    .on('enter', (e) => {
+    //        // add bg just in case in both directions
+    //        document.body.classList.add('-mario-bg');
+    //    });
+    //scenes[15]
+    //    .on('enter', (e) => {
+    //        if (e.scrollDirection === 'FORWARD') {
+    //            // remove bg
+    //            document.body.classList.remove('-mario-bg');
+    //        }
+    //        if (e.scrollDirection === 'REVERSE') {
+    //            Castle.play();
+    //            Potion.stop();
+    //        }
+    //    })
+    //    .on('leave', (e) => {
+    //        if (e.scrollDirection === 'FORWARD') {
+    //        }
+    //        if (e.scrollDirection === 'REVERSE') {
+    //            // add bg
+    //            document.body.classList.add('-mario-bg');
+    //        }
+    //    });
+    //;
+    //scenes[16]
+    //    .on('enter', (e) => {
+    //        if (e.scrollDirection === 'FORWARD') {
+    //            Castle.stop();
+    //            Potion.play();
+    //        }
+    //        if (e.scrollDirection === 'REVERSE') {
+    //        }
+    //    });
+  };
+
+  const buildLoops = () => {
+    /**
+     * @desc
+     * mount loop animations
+     */
+    BizBiz.build();
+    //BizAstro.build();
+    //BizCoffee.build();
+    //BizDino.build();
+    ////Castle.build();
+    //Potion.build();
+    //BizShapes.build();
+    //if (viewport.is568) {
+    //  // Castle.build568();
+    //} else {
+    //  //Castle.build();
+    //}
+    //if (viewport.is568) {
+    //  Pepe.build568();
+    //} else if (viewport.is1024) {
+    //  Pepe.build1024();
+    //} else {
+    //  Pepe.build();
+    //}
+    //if (!viewport.is1024) {
+    //  BizFilomena.build();
+    //  BizOcto.build();
+    //}
+    //if (!viewport.is768) BizET.build();
+    //if (!viewport.is568) BizZen.build();
+  };
+
   const sceneCurriculumVitae = () => {
     /**
      * @desc
@@ -195,6 +398,11 @@ const Home: NextPage = () => {
     playIntro();
     // 02. setup time lines and scenes
     setupScenes();
+    // 03. build loop animations for each character
+    buildLoops();
+    // 04. Hook loops to ScrollMagic Scenes
+    hookLoops();
+    // 05. Animate every scene on scroll
     // 05. Animate every scene on scroll
     sceneCurriculumVitae();
   }, []);
@@ -207,7 +415,7 @@ const Home: NextPage = () => {
 
       <Titles scene="curriculum">
         {viewport.is768 ? (
-          <h1 className="title" v-if="viewport.is768">
+          <h1 className="title">
             Curriculum
             <br />
             .vitae<span className="params">'/.*$/g'</span>
@@ -221,6 +429,8 @@ const Home: NextPage = () => {
           <p className="-gray">&lt;A life+work showcase&gt;</p>
         </div>
       </Titles>
+      <Biz />
+      <div className="gap"></div>
     </div>
   );
 };
